@@ -10,11 +10,16 @@ import { createOrGetUser } from "../utils";
 import useAuthStore from "../store/authStore";
 import { AiOutlineLogout } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
+import { IUser } from "../types";
 
 const Navbar = () => {
-    const { userProfile, addUser, removeUser } = useAuthStore();
+    const [user, setUser] = useState<IUser | null>();
     const [searchValue, setSearchValue] = useState("");
     const router = useRouter();
+    const { userProfile, addUser, removeUser } = useAuthStore();
+    useEffect(() => {
+        setUser(userProfile);
+      }, [userProfile]);
 
     const handleSearch = (e: { preventDefault: () => void }) => {
         e.preventDefault();
@@ -56,7 +61,7 @@ const Navbar = () => {
                 </form>
             </div>
             <div>
-                {userProfile ? (
+                {user ? (
                     <div className="flex gap-5 md:gap-10">
                         <Link href={"/upload"}>
                             <button className="border-2 px-2 md:px-4 text-md font-semibold flex items-center gap-2">
@@ -65,14 +70,14 @@ const Navbar = () => {
                             </button>
                         </Link>
 
-                        {userProfile?.image && (
+                        {user?.image && (
                             <Link href={"/"}>
                                 <>
                                     <Image
                                         width={40}
                                         height={40}
                                         className="rounded-full cursor-pointer"
-                                        src={userProfile.image}
+                                        src={user.image}
                                         alt="profile photo"
                                     />
                                 </>

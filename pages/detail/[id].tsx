@@ -13,13 +13,11 @@ import useAuthStore from "../../store/authStore";
 import LikeButton from "../../components/LikeButton";
 import Comments from "../../components/Comments";
 
-interface Iprops {
+interface IProps {
     postDetails: Video;
 }
 
-// bg-blurred-img bg-no-repeat bg-cover
-
-const Detail = ({ postDetails }: Iprops) => {
+const Detail = ({ postDetails }: IProps) => {
     const [post, setPost] = useState(postDetails);
     const [playing, setPlaying] = useState(false);
     const [isVideoMute, setIsVideoMute] = useState(false);
@@ -58,7 +56,7 @@ const Detail = ({ postDetails }: Iprops) => {
             setPost({ ...post, likes: data.likes });
         }
     };
-    const addComment = async (e) => {
+    const addComment = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         if (userProfile && comment) {
             setIsPostingComment(true);

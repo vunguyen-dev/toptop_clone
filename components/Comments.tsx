@@ -6,19 +6,19 @@ import NoResults from "./NoResults";
 import useAuthStore from "../store/authStore";
 import { IUser } from "../types";
 
+interface IComment {
+    comment: string;
+    length?: number;
+    _key: string;
+    postedBy: { _ref?: string; _id?: string };
+}
+
 interface IProps {
     isPostingComment: Boolean;
     comment: string;
     setComment: Dispatch<SetStateAction<string>>;
     addComment: (e: React.FormEvent) => void;
     comments: IComment[];
-}
-
-interface IComment {
-    comment: string;
-    length?: number;
-    _key: string;
-    postedBy: { _ref: string; _id: string };
 }
 
 const Comments = ({
